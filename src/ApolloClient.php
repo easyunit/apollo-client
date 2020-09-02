@@ -72,9 +72,9 @@ class ApolloClient
         } catch (\Exception $e) {
             curl_close($ch);
 
-            if (file_exists(ENV_FILE)) {
-                ($callback instanceof \Closure) && call_user_func($callback);
-            }
+            // if (!file_exists(ENV_FILE)) {
+            ($callback instanceof \Closure) && call_user_func($callback);
+            // }
 
             return $e->getMessage();
         }
