@@ -93,10 +93,15 @@ fi
 ```
 
 ### 提供健康检查
-- laravel路由
-```php
-Route::get('/ping', 'Health@check');
-```
+- 健康检查是给容器化部署使用的(docker k8s)
+- lumen暂时不支持健康检查
+- tp健康检查需要依次执行以下操作
+  - 复制健康检查控制器
+  - laravel需要复制public/index.php中的常量定义
+  - 添加tp/laravel路由
+  ```php
+  Route::get('/ping', 'Health@check');
+  ```
 
 ### 其他
 
