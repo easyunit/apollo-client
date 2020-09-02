@@ -1,0 +1,20 @@
+{
+    "name": "easyunit/apollo-client",
+    "description": "apollo client support secret 携程阿波罗分布式配置中心，客户端实现，支持秘钥验证",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "easyunit",
+            "email": "api_php@163.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Moka\\": "src/"
+        }
+    },
+    "require": {
+        "php": ">=7.1.0"
+    }
+}

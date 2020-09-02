@@ -1,0 +1,12 @@
+vendor/*
+composer.lock
+
+# 屏蔽根目录代码
+index.php
+docs/*
+
+demo/thinkphp/docs/apollo/apolloConfig.*
+demo/thinkphp/.env
+demo/lumen/docs/apollo/apolloConfig.*
+demo/lumen/.env
+demo/swoole-jobs/apollo/apolloConfig.*
