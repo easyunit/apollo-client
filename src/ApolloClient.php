@@ -187,7 +187,7 @@ $request_uri";
             } elseif ($httpCode != 304) {
                 throw new \Exception($response ?: $error);
             }
-            echo $counter;
+            // echo $counter;
             usleep(100);
         } while (true);
     }
