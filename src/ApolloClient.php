@@ -60,6 +60,16 @@ class ApolloClient
         $this->save_dir = $save_dir;
     }
 
+    public function setPullTimeout($pullTimeout = 10)
+    {
+        $this->pullTimeout = $pullTimeout;
+    }
+
+    public function setIntervalTimeout($intervalTimeout = 60)
+    {
+        $this->intervalTimeout = $intervalTimeout;
+    }
+
     // 启动客户端
     public function start($callback = null)
     {
