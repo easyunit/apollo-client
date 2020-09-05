@@ -8,7 +8,4 @@ demo/thinkphp/docs/apollo/apolloConfig.*
 demo/lumen/docs/apollo/apolloConfig.*
 demo/swoole-jobs/apollo/apolloConfig.*
 
-demo/thinkphp/.env
-demo/lumen/.env
-
 wiki/README.md
