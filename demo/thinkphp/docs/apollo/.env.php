@@ -2,12 +2,12 @@
 
 $host = '';
 
-$secret = '';  // dev秘钥
+$secret = '';
 
-$appid = 'mid-admin';
+$appid = '';
 
 // 示例请求的命名空间 
-$namespaces = ['application', 'mysql.json', 'redis.json'];
+$namespaces = ['application', 'apollo', 'mysql.json', 'redis.json'];
 
 // 集群
 $cluster = 'default';

@@ -16,6 +16,12 @@ trace = {$apollo['trace']}
 ";
 
 echo "
+[apollo]
+host = {$apollo['host']}
+secret = {$apollo['secret']}
+";
+
+echo "
 [fastadmin]
 usercenter = {$apollo['fastadmin.usercenter']}
 captcha = {$apollo['fastadmin.captcha']}
@@ -35,7 +41,7 @@ if ($apollo['mysql-type'] == 'yaml') {
     // 处理json格式数据
     $json = json_decode($apollo['mysql'], true);
     foreach ($json as $key => $value) {
-        echo "{$key} = {$value}
+        echo "{$key} = '{$value}'
 ";
     }
 } else {
@@ -45,7 +51,7 @@ if ($apollo['mysql-type'] == 'yaml') {
 hostname = {$apollo['mysql.host']}
 hostport = {$apollo['mysql.port']}
 username = {$apollo['mysql.user']}
-password = {$apollo['mysql.password']}
+password = '{$apollo['mysql.password']}'
 database = {$apollo['mysql.db']}
 prefix = m_
 ";
@@ -62,13 +68,13 @@ if ($apollo['redis-type'] == 'yaml') {
 } elseif ($apollo['redis-type'] == 'json') {
     $json = json_decode($apollo['redis'], true);
     foreach ($json as $key => $value) {
-        echo "{$key} = {$value}
+        echo "{$key} = '{$value}'
 ";
     }
 } else {
     echo "host = {$apollo['redis.host']}
 port = {$apollo['redis.port']}
-pass = {$apollo['redis.password']}
+pass = '{$apollo['redis.password']}'
 dbindex = {$apollo['redis.db']}
 ";
 }

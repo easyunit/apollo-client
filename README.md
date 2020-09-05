@@ -1,6 +1,6 @@
 ## 安装
 
-```composer require easyunit/apollo-client=v0.0.6```
+```composer require easyunit/apollo-client=v0.1.0```
 
 ## apollo配置中心客户端
 
@@ -20,88 +20,40 @@
 - Namespaces
 - Secret 支持秘钥安全请求
 
-### lumen接入指引
+### 非侵入式接入指引
 
 - 流程说明
   - apollo-php-client，链接配置中心，读取到配置文件，写入缓存文件，然后将配置写入到env文件，供PHP程序使用
 - 步骤说明
-  - 将demo/lumen/apollo.php复制到根目录
-  - 将demo/lumen/docs/目录复制到lumen的根目录
-  - 修改.env.php文件中的 host appid namesapce等配置信息
-  - 按需修改.env_tpl.php模板输出信息
-  - 执行 php apollo.php 即可看到成功生成.env配置信息
+  - **${frame}**为thinkphp或者lumen
+  - 将demo/**${frame}**/docs/目录复制到项目根目录
+  - 修改**.env.php**文件中的namesapce等配置信息
+  - 按需修改**.env_tpl.php**模板输出信息
+  - 在public 目录 php apollo-listen.php即可启动监听
+  - 在public 目录 php apollo-pull.php即可拉取一次配置
 - 补充说明
   - lumen模板暂时可输出以下几种配置，可自行扩展
     - key=>val
     - json
-  - 扩展说明 $apollo变量内存储了所有的配置项
-
-### thinkphp5 接入指引
-
-- 流程说明
-  
-  - apollo-php-client，链接配置中心，读取到配置文件，写入缓存文件，然后将配置写入到env文件，供PHP程序使用
-- 步骤说明
-  - 将demo/thinkphp/中的文件(或相关代码)一一对应复制到tp的相关目录，注意保留程序的源代码
-    - /application/command.php为追加了一个命令行
-    - /application/common/command/Apollo.php为新文件
-    - /docs/*为新文件
-  - 修改.env.php文件中的 host appid namesapce等配置信息
-  - 按需修改.env_tpl.php模板输出信息
-  - 执行 php think apollo 即可看到成功生成.env配置信息
-- 补充说明
-  - lumen模板暂时可输出以下几种配置，可自行扩展
-    - key=>val
-    - yaml
-    - json
-    
-  - 扩展说明 $apollo变量内存储了所有的配置项
-  
-    
-
-### swoole-jobs接入指引
-
-- 将demo/swoole-jobs目录下文件复制到swoole-jobs项目的对应位置
-- 自定义修改.env_tpl.php模板文件以生成config.php文件
-- 将.env.php文件配置为你的配置中心地址
+    - yaml  需要自行扩展模板
+  - 扩展说明 **.env_tpl.php**文件中**$apollo**变量内存储了所有的配置项
 
 ### docker环境客户端启动
 Docker环境客户端自启动
 在docker的启动脚本中加入启动代码，一般的php容器启动脚本是docker-php-entrypoint
 
-- lumen
-
 ```bash
-if [ -f "/path/to/start.php" ]; then
-    apollo_ps=$(ps -aux | grep -c "php /path/to/apollo.php")
+if [ -f "/var/www/目录/public/apollo-listen.php" ]; then
+    apollo_ps=$(ps -ef | grep -c "php /var/www/目录/public/apollo-listen.php")
     if [ $apollo_ps -eq 1 ]; then
-        php /path/to/apollo.php &
+        cd /var/www/目录/public && php apollo-listen.php &
     fi
 fi
 ```
 
-- thinkphp
-将中文汉字目录换成你的项目的位置
+### 健康检查
 
-```bash
-if [ -f "/var/www/目录/think" ]; then
-    apollo_ps=$(ps -ef | grep -c "php /var/www/目录/think")
-    if [ $apollo_ps -eq 1 ]; then
-        cd /var/www/目录/ && php think apollo &
-    fi
-fi
-```
-
-### 提供健康检查
-- 健康检查是给容器化部署使用的(docker k8s)
-- lumen暂时不支持健康检查
-- tp健康检查需要依次执行以下操作
-  - 复制健康检查控制器
-  - laravel需要复制public/index.php中的常量定义
-  - 添加tp/laravel路由
-  ```php
-  Route::get('/ping', 'Health@check');
-  ```
+- jenkins自动编排策略设计到的健康检查请自行扩展
 
 ### 其他
 

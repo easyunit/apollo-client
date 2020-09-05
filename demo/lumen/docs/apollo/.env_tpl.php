@@ -8,20 +8,35 @@ $apollo['app.url']  = $apollo['app.url'] ?? 'www.mokasz.com';
 $apollo['app.timezone']  = $apollo['app.timezone'] ?? 'Asia/Shanghai';
 
 $apollo['cache.driver'] = $apollo['cache.driver'] ?? 'file';
+$apollo['cache.prefix'] = $apollo['cache.prefix'] ?? 'false';
 
+$apollo['queue.connection'] = $apollo['queue.connection'] ?? 'sync';
 
+$apollo['session.driver'] = $apollo['session.driver'] ?? 'redis';
+$apollo['session.lefttime'] = $apollo['session.lefttime'] ?? '120';
+
+$apollo['broadcast.driver'] = $apollo['broadcast.driver'] ?? 'log';
 
 // 写入 properties key => value 配置
 echo "APP_NAME={$apollo['app.name']}
 APP_ENV=local
-APP_KEY={$apollo['app.key']}
+APP_KEY='{$apollo['app.key']}'
 APP_DEBUG={$apollo['app.debug']}
 APP_URL={$apollo['app.url']}
 APP_TIMEZONE={$apollo['app.timezone']}
 
+APOLLO_HOST={$apollo['host']}
+APOLLO_SECRET={$apollo['secret']}
+
 ###缓存
 CACHE_DRIVER={$apollo['cache.driver']}
-QUEUE_CONNECTION=sync
+CACHE_PREFIX={$apollo['cache.prefix']}
+QUEUE_CONNECTION={$apollo['queue.connection']}
+
+SESSION_DRIVER={$apollo['session.driver']}
+SESSION_LIFETIME={$apollo['session.lefttime']}
+
+BROADCAST_DRIVER={$apollo['broadcast.driver']}
 
 LOG_CHANNEL=stack
 LOG_SLACK_WEBHOOK_URL=
@@ -40,14 +55,14 @@ if ($apollo['redis-type'] == 'yaml') {
 } elseif ($apollo['redis-type'] == 'json') {
     $json = json_decode($apollo['redis'], true);
     foreach ($json as $key => $value) {
-        echo strtoupper("REDIS_{$key}") . " = {$value}
+        echo strtoupper("REDIS_{$key}") . " = '{$value}'
 ";
     }
 } else {
     echo "
 REDIS_HOST = {$apollo['redis.host']}
 REDIS_PORT = {$apollo['redis.port']}
-REDIS_PASS = {$apollo['redis.password']}
+REDIS_PASS = '{$apollo['redis.password']}'
 REDIS_DBINDEX = {$apollo['redis.db']}
 ";
 }
@@ -66,7 +81,7 @@ if ($apollo['mysql-type'] == 'yaml') {
 } elseif ($apollo['mysql-type'] == 'json') {
     $json = json_decode($apollo['mysql'], true);
     foreach ($json as $key => $value) {
-        echo strtoupper("MYSQL_{$key}") . " = {$value}
+        echo strtoupper("MYSQL_{$key}") . " = '{$value}'
 ";
     }
 } else {
@@ -74,7 +89,7 @@ if ($apollo['mysql-type'] == 'yaml') {
 MYSQL_HOSTNAME = {$apollo['mysql.host']}
 MYSQL_HOSTPORT = {$apollo['mysql.port']}
 MYSQL_USERNAME = {$apollo['mysql.user']}
-MYSQL_PASSWORD = {$apollo['mysql.password']}
+MYSQL_PASSWORD = '{$apollo['mysql.password']}'
 MYSQL_DATABASE = {$apollo['mysql.db']}
 MYSQL_PREFIX = m_
 ";
