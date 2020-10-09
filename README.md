@@ -1,3 +1,8 @@
+## 前言
+- 本sdk基于multilinguals/apollo-client改写
+- multilinguals/apollo-client不支持秘钥验证，本sdk添加了sdk验证
+- PHP开发的apollo-client对代码侵入性太高，本项目已经完全使用go语言实现，需要技术支持可以添加我的QQ 289360775
+
 ## 安装
 
 ```composer require easyunit/apollo-client=v0.1.0```
@@ -56,7 +61,5 @@ fi
 - jenkins自动编排策略设计到的健康检查请自行扩展
 
 ### 其他
-
-- 本sdk基于multilinguals/apollo-client改写
 - 增加秘钥安全请求功能
 - 增加tp5使用
